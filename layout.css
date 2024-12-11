@@ -1,5 +1,120 @@
+@font-face {
+    font-family: "nunito";
+    src: url(Nunito_Sans/NunitoSans-VariableFont_YTLC\,opsz\,wdth\,wght.ttf);
+  }
+
+body {
+    background-image: linear-gradient(to right bottom, #d2defe, #e8daf4,#efe6f6);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+h1 {
+    font-family: 'nunito';
+    color: #775891 ;
+}
 
 
-main {
-    background-color: #021645;
+label{
+    font-family: 'nunito';
+    color: #b29ac9 ;
+}
+
+/* Skjuler standard-checkboxen */
+.custom-checkbox input[type="checkbox"] {
+    display: none;
+}
+
+
+.custom-checkbox .checkmark {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    border-radius: 8px; 
+    background: #e8daf4;
+    box-shadow: inset 4px 4px 6px #d5c9e0, inset -4px -4px 6px #fbebff;
+    margin-right: 12px;
+    cursor: pointer;
+    position: relative; 
+}
+
+
+.custom-checkbox input[type="checkbox"]:checked + .checkmark {
+    background: linear-gradient(145deg, #d1c4dc, #f8e9ff);
+    box-shadow: inset 6px 6px 6px #d5c9e0, inset -6px -6px 6px #fbebff;
+}
+
+
+.custom-checkbox .checkmark::after {
+    content: '';
+    position: absolute;
+    width: 6px; 
+    height: 12px; 
+    border: solid #775891;
+    border-width: 0 3px 3px 0;
+    transform: rotate(45deg);
+    top: 4px; 
+    left: 8px; 
+    display: none; /* Gemt indtil checked */
+}
+
+/* Gør "check" synligt, når markeret */
+.custom-checkbox input[type="checkbox"]:checked + .checkmark::after {
+    display: block;
+}
+
+
+.custom-checkbox {
+    display: flex;
+    align-items: center; /* Juster tekst og checkbox lodret */
+}
+
+
+form input:hover{
+    background: linear-gradient(145deg, #f8e9ff, #d6cddf);
+}
+
+form{
+    border-radius: 30px;
+    background: #e8daf4;
+    box-shadow:  6px 6px 18px #d5c9e0,
+             -6px -6px 18px #fbebff;
+    padding: 4rem;
+    max-width: 80%;
+}
+
+form input {
+    content: '';
+    border-radius: 20px;
+    background: #e8daf4;
+    box-shadow: inset 6px 6px 6px #d5c9e0,
+            inset -6px -6px 6px #fbebff;
+    padding: 0.5rem;
+    border: none;
+    font-size: 12px;
+    font-family: 'nunito';
+}
+
+button{
+    border-radius: 20px;
+    background: #e8daf4;
+    box-shadow:  6px 6px 6px #d5c9e0,
+             -6px -6px 6px #fbebff;
+    border: none;
+    padding: 0.8rem 2rem 0.8rem 2rem;
+    font-family: 'nunito';
+    color: #775891 ;
+    font-size: 20px;
+    transition: all 0.5s ease 0s;
+    cursor: pointer;
+}
+
+button:hover{
+    border-radius: 20px;
+    background: linear-gradient(145deg, #d1c4dc, #f8e9ff);
+    box-shadow:  6px 6px 6px #d5c9e0,
+             -6px -6px 6px #fbebff;
 }
