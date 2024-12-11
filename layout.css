@@ -17,6 +17,11 @@ h1 {
     color: #775891 ;
 }
 
+p{
+    font-family: 'nunito';
+    color: #b29ac9 ;
+}
+
 
 label{
     font-family: 'nunito';
@@ -87,8 +92,9 @@ form{
 }
 
 form input {
+    width: 95%;
     content: '';
-    border-radius: 20px;
+    border-radius: 12px;
     background: #e8daf4;
     box-shadow: inset 6px 6px 6px #d5c9e0,
             inset -6px -6px 6px #fbebff;
@@ -110,6 +116,9 @@ button{
     font-size: 20px;
     transition: all 0.5s ease 0s;
     cursor: pointer;
+    text-align: center;
+    text-transform: uppercase;
+    width: 100%;
 }
 
 button:hover{
