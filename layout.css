@@ -15,11 +15,31 @@ body {
 h1 {
     font-family: 'nunito';
     color: #775891 ;
+    text-align: center;
+    margin-top: 0;
 }
 
 p{
     font-family: 'nunito';
-    color: #b29ac9 ;
+    color: #9e79c3 ;
+    font-size: 19px;
+    text-align: center;
+}
+
+a{
+    font-family: 'nunito';
+    color: #8c5bb9 ;
+    text-decoration: none;
+    text-align: center;
+    font-size: 20px;
+}
+
+a:hover{
+    font-family: 'nunito';
+    color: #6100bc ;
+    text-decoration: none;
+    text-align: center;
+    font-size: 20px;
 }
 
 
@@ -78,17 +98,18 @@ label{
 }
 
 
-form input:hover{
-    background: linear-gradient(145deg, #f8e9ff, #d6cddf);
-}
+
 
 form{
     border-radius: 30px;
     background: #e8daf4;
     box-shadow:  6px 6px 18px #d5c9e0,
              -6px -6px 18px #fbebff;
-    padding: 4rem;
-    max-width: 80%;
+    padding-right: 3rem;
+    padding-left: 3rem;
+    padding-top: 2.5rem;
+    padding-bottom: 3rem;
+    width: 40%;
 }
 
 form input {
@@ -98,10 +119,20 @@ form input {
     background: #e8daf4;
     box-shadow: inset 6px 6px 6px #d5c9e0,
             inset -6px -6px 6px #fbebff;
-    padding: 0.5rem;
+    padding: 0.6rem 0.5rem 0.8rem 0.6rem;
     border: none;
     font-size: 12px;
     font-family: 'nunito';
+    margin-top: 0.2rem;
+    margin-bottom: 1rem;
+}
+
+form input:hover{
+    background: linear-gradient(145deg, #f8e9ff, #d6cddf);
+}
+
+form input:visited{
+    background-color: #e8daf4;
 }
 
 button{
@@ -110,7 +141,7 @@ button{
     box-shadow:  6px 6px 6px #d5c9e0,
              -6px -6px 6px #fbebff;
     border: none;
-    padding: 0.8rem 2rem 0.8rem 2rem;
+    padding: 0.4rem 0rem 0.4rem 0rem;
     font-family: 'nunito';
     color: #775891 ;
     font-size: 20px;

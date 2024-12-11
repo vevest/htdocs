@@ -55,19 +55,27 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 </head>
 <body>
     
-    <h1>Login</h1>
+    
     
     <?php if ($is_invalid): ?>
         <em>Ugyldigt login</em>
     <?php endif; ?>
     
     <form method="post">
+        <h1>Login</h1>
+
         <label for="email">E-mail</label>
         <input type="email" name="email" id="email"
                value="<?= htmlspecialchars($_POST["email"] ?? "") ?>">
         
+        <br>
+        <br>
         <label for="password">Adgangskode</label>
         <input type="password" name="password" id="password">
+
+        <br>
+        <br>
+        <br>
         
         <button>Log ind</button>
     </form>

@@ -28,17 +28,17 @@ if (isset($_SESSION["user_id"])) {
 </head>
 <body>
     
-    <h1>Home</h1>
+    <h1>Velkommen</h1>
     
     <?php if (isset($user)): ?>
         
-        <p>Hello <?= htmlspecialchars($user["name"]) ?></p>
+        <p>Hej <?= htmlspecialchars($user["name"]) ?></p>
         
         <p><a href="logout.php">Log ud</a></p>
         
     <?php else: ?>
         
-        <p><a href="login.php">Log ind</a> eller <a href="form.html">Tilmeld dig</a></p>
+        <p><a href="form.html">Tilmeld dig her</a> <br> <br> Har du allerede en bruger? <br> <a href="login.php">Log ind</a></p>
         
     <?php endif; ?>
     
