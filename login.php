@@ -57,9 +57,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     
     
     
-    <?php if ($is_invalid): ?>
-        <em>Ugyldigt login</em>
-    <?php endif; ?>
+    
     
     <form method="post">
         <h1>Login</h1>
@@ -72,6 +70,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         <br>
         <label for="password">Adgangskode</label>
         <input type="password" name="password" id="password">
+        <?php if ($is_invalid): ?>
+            <em>Ugyldigt login</em>
+        <?php endif; ?>
 
         <br>
         <br>

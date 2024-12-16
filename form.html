@@ -8,10 +8,9 @@
     <title>Tilmeld dig</title>
 </head>
 <body>
-    
 
-    <!--action bruges til at vise hvor vi vil sende formen til. Post metoden bruges til at specificere hvilken metode vi bruger. Default er get metoden som sender dataen via url'en hvilket ikke er sikkert da det kan ses i browserhistorikken, derfor specificerer jeg med post-->
-    <form action="signup.php" method="post" id="signup" novalidate>
+    <!-- Formularen får et navn, så den kan refereres korrekt i JavaScript -->
+    <form name="form" action="signup.php" method="post" id="signup" onsubmit="return validateForm()" novalidate>
         <h1>
             Tilmeld dig 
         </h1>
@@ -59,10 +58,68 @@
         <br>
         <br>
 
-        <button>Tilmeld</button>
-
+        <button type="submit">Tilmeld</button>
 
     </form>
+
+    <script>
+        // Denne funktion viser en JavaScript alert med de fejl, der er sendt fra PHP
+        function showError(message) {
+            alert(message);  // Viser en pop-up med fejlbeskeden
+        }
+    
+        // Denne funktion kaldes, når tilmeldingsformularen indsendes
+        function validateForm() {
+            var name = document.forms["form"]["name"].value;
+            var email = document.forms["form"]["email"].value;
+            var password = document.forms["form"]["password"].value;
+            var password_confirmation = document.forms["form"]["password_confirmation"].value;
+            var terms = document.forms["form"]["terms"].checked;
+            var errorMessage = '';
+    
+            // Tjek for om der er et navn
+            if (name == "") {
+                errorMessage += "Navn er påkrævet\n";
+            }
+    
+            // Tjek for om email eksisterer
+            var emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+            if (email == "" || !emailRegex.test(email)) {
+                errorMessage += "Gyldig e-mail er påkrævet\n";
+            }
+    
+            // Tjek for om adgangskoden opfylder alle kravene
+            if (password.length < 8) {
+                errorMessage += "Adgangskode skal være mindst 8 tegn\n";
+            }
+    
+            if (!/[a-zA-Z]/.test(password)) {
+                errorMessage += "Adgangskode skal indeholde mindst et bogstav\n";
+            }
+    
+            if (!/[0-9]/.test(password)) {
+                errorMessage += "Adgangskode skal indeholde mindst et tal\n";
+            }
+    
+            // Tjekker om adgangskoderne er ens
+            if (password != password_confirmation) {
+                errorMessage += "Adgangskoderne skal stemme overens\n";
+            }
+    
+            // Tjekker for accepterede vilkår
+            if (!terms) {
+                errorMessage += "Du skal acceptere vilkår og betingelser\n";
+            }
+    
+            // Hvis der er nogen fejl, vis dem med en pop-up og stop tilmeldformularen
+            if (errorMessage != '') {
+                showError(errorMessage);
+                return false;  // Stopper tilmeldingsformularen fra at blive sendt
+            }
+    
+            return true;  // Hvis ingen fejl, send tilmeldingsformularen
+        }
+    </script>
     
 </body>
 </html>

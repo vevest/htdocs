@@ -1,79 +1,68 @@
 <?php
+// Initialiserer en variabel for fejl
+$errorMessage = '';
 
-//tjekker for om feltet er udfyldt
+// Tjekker for om feltet er udfyldt
 if (empty($_POST["name"])) {
-    die("Navn er påkrævet");
+    $errorMessage .= "Navn er påkrævet\n";
 }
 
-//tjekker for om feltet er udfyldt
-if ( ! filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
-    die("Gyldig e-mail er påkrævet");
+// Tjekker for om e-mailen er gyldig
+if (!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
+    $errorMessage .= "Gyldig e-mail er påkrævet\n";
 }
 
-//tjekker for om adgangskode er udfyldt med korrekte karakterer
+// Tjekker for om adgangskoden er korrekt oprettet på forskellige parametre
 if (strlen($_POST["password"]) < 8) {
-    die("Adgangskode skal være mindst 8 tegn");
+    $errorMessage .= "Adgangskode skal være mindst 8 tegn\n";
 }
 
-if ( ! preg_match("/[a-z]/i", $_POST["password"])) {
-    die("Adgangskode skal indeholde mindst et bogstav");
+if (!preg_match("/[a-z]/i", $_POST["password"])) {
+    $errorMessage .= "Adgangskode skal indeholde mindst et bogstav\n";
 }
 
-if ( ! preg_match("/[0-9]/", $_POST["password"])) {
-    die("Adgangskode skal indeholde mindst et tal");
+if (!preg_match("/[0-9]/", $_POST["password"])) {
+    $errorMessage .= "Adgangskode skal indeholde mindst et tal\n";
 }
 
-//tjekker for om adgangskoder er ens
+// Tjekker om adgangskoderne er ens
 if ($_POST["password"] !== $_POST["password_confirmation"]) {
-    die("Adgangskoder skal stemme overens");
+    $errorMessage .= "Adgangskoderne skal stemme overens\n";
 }
 
-//tjekker om terms er accepteret
+// Tjekker om vilkår er accepteret
 if (empty($_POST["terms"])) {
-    die("Du skal acceptere vilkår og betingelser for at tilmelde dig");
+    $errorMessage .= "Du skal acceptere vilkår og betingelser\n";
 }
 
-//hasher adgangskoden så den transformeres til en uigenkendelig string. Password_default er algoritme der automatisk opdateres og hasher adgangskode på den sikreste måde
+// Hvis der er fejl, sender beskeden tilbage til tilmeldingsformularen
+if ($errorMessage) {
+    echo "<script>alert('$errorMessage');</script>";
+    exit;
+}
+
+// Hvis alt er OK, fortsætter med at gemme i databasen
 $password_hash = password_hash($_POST["password"], PASSWORD_DEFAULT);
-
-//opretter forbindelse til databasen
 $mysqli = require __DIR__ . "/databaseconnect.php";
-
-// values(?, ?, ?) bruges som placeholder for værdierne for at beskytte mod SQL-injection
-$sql = "INSERT INTO user (name, email, password_hash)
-        VALUES (?, ?, ?)";
-  
-//opretter tomt statement objekt  
+$sql = "INSERT INTO user (name, email, password_hash) VALUES (?, ?, ?)";
 $stmt = $mysqli->stmt_init();
 
-//bruger objektet her til at tjekke for evt syntax fejl eller ugyldig forespørgsler
-if ( ! $stmt->prepare($sql)) {
+if (!$stmt->prepare($sql)) {
     die("SQL error: " . $mysqli->error);
 }
 
-//binder parametre til SQL-stamentet (øger sikkerheden) "sss" står for 3 strings
-$stmt->bind_param("sss",
-                  $_POST["name"],
-                  $_POST["email"],
-                  $password_hash);
- 
-//udfører statmentet med if else  
-//hvis if så er det successfuld                
-if ($stmt->execute()) {
+$stmt->bind_param("sss", $_POST["name"], $_POST["email"], $password_hash);
 
+if ($stmt->execute()) {
     header("Location: success_signup.html");
     exit;
-    
 } else {
-    //hvis emailen er brugt før
     if ($mysqli->errno === 1062) {
         die("Denne e-mail er allerede i brug");
     } else {
-        // Andre fejl der kunne være vises med fejlkode
         die($mysqli->error . " " . $mysqli->errno);
     }
 }
-
 
 
 
